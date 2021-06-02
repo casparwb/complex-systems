@@ -10,7 +10,12 @@ struct CellularAutomata
     bc::Symbol
 end
 
-function simulate(T, N, rule, r=1, Δ=x->nothing, bc=:periodic; init=:random)
+function plot_rule(rule; time=300, N=500, init=:one, bc=:periodic)
+    heatmap(simulate(time, N, rule, init=init, bc=bc), yflip=true, colorbar=false,
+            yticks=nothing, xticks=nothing, size=(800, 600))
+end
+
+function simulate(T, N, rule, r=1, Δ=x->nothing; bc=:periodic, init=:random)
 
     if init == :random
         c = rand((Int8(0), Int8(1)), N)
